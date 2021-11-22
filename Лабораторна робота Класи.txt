@@ -1,0 +1,60 @@
+#include<iostream>
+using namespace std;
+
+class Bike
+{
+    private:
+    char model[10];//модель 
+    int year;//рік випуску
+    float power;//потужність двигуна
+    char color[10];//колір
+    int speed;//максимальна швидкість
+
+    public:
+    Bike():speed(0),power(0){}
+    Bike(int speed,float power){}
+    
+    void info()
+    {
+    cout << "Модель: ";
+    cin >> model;
+    cout << "Рік випуску: ";
+    cin >> year;
+    cout << "Потужність двигуна: ";
+    cin >> power;
+    cout << "Колір: ";
+    cin >> color;
+    cout << "Максимальна швидкість: ";
+    cin >> speed;
+    }
+
+    void output()
+    {
+        cout << "Модель: " << model << endl;
+        cout << "Рік випуску: " << year << endl;
+        cout << "Потужність двигуна: " << power << endl;
+        cout << "Колір: " << color << endl;
+        cout << "Максимальна швидкість: " << speed << endl;
+    }
+};
+ 
+int main()
+{
+    const int mas=0;
+    Bike a[mas];
+
+    do
+    {
+    cout << "Bike з властивостями: " << endl;
+    a[mas].info();
+
+    }while (mas == 1);
+
+    for (int i=0;i<1;i++)
+    {
+        cout << "\nBike з властивостями: " << endl;
+        a[i].output();
+    }
+    system("pause");
+    return 0;
+}
