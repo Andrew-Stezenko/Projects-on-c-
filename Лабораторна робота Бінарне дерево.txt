@@ -1,0 +1,142 @@
+//8 варіант
+#include <iostream>
+using namespace std;
+
+int tab = 0; 
+
+struct Tree
+{
+	int Data; 
+	Tree* Left;
+	Tree* Right;
+};
+
+
+void Add(int aData, Tree*& aTree)//Внесення данних
+{
+	if (!aTree)
+	{ 
+		aTree = new Tree;
+		aTree->Data = aData;
+		aTree->Left = 0;
+		aTree->Right = 0;
+		return;
+	}
+	else 
+		if (aTree->Data > aData)
+		{ 
+			Add(aData, aTree->Left);
+		}
+		else
+		{
+			Add(aData, aTree->Right);
+		};
+}
+
+void print(Tree* aTree)//Вивід
+{
+	if (!aTree) 
+	return; 
+	tab += 5; 
+
+	print(aTree->Left); 
+	for (int i = 0; i < tab; i++) cout << " ";
+	cout << aTree->Data << endl;
+	print(aTree->Right);
+	tab-= 5; 
+	return;
+}
+
+
+
+Tree* add_node(Tree* node, char Data)//Додавання нового вузла
+{
+        if (NULL == node) 
+        {
+            node = new Tree; 
+            node->Data = Data; 
+            node->Left = NULL; 
+            node->Right = NULL; 
+        }
+ 
+        if (node->Left == NULL) 
+        {
+            node->Left = new Tree;
+            node->Left->Left = node->Left->Right = NULL;
+            node->Left->Data = Data;
+        }
+ 
+        if (node->Right == NULL) 
+        {
+            node->Right = new Tree;
+            node->Right->Left = node->Right->Right = NULL;
+            node->Right->Data = Data;
+        }
+        return node;
+}
+
+
+void pr_obh(Tree*& aTree)//Прямий обхід дерева
+{
+	if (NULL == aTree)    
+	return;
+
+	cout << aTree->Data << endl; 
+	pr_obh(aTree->Left); 
+	pr_obh(aTree->Right); 
+}
+
+
+void g_obh(Tree*& aTree)//Обхід по горизонталі
+{
+	if (NULL == aTree) 
+	return;
+	
+	g_obh(aTree->Left); 
+	cout << aTree->Data << endl;
+	g_obh(aTree->Right); 
+
+	
+}
+
+
+
+int main()
+{
+	setlocale(LC_ALL,"");
+	Tree* R = 0;
+	int vel;
+	int element;
+	int k;
+	Tree* Tr;
+	char n;
+
+	cout << "Введіть кількість елементів дерева: ";
+	cin >> vel;
+	cout << endl;
+
+
+	for (int i = 0; i < vel; i++)
+	{
+		Add(rand() % 100, R);
+	}
+	cout << "Додавання нового вузла" << endl;
+    cout << "Введіть назву нового вузла: ";
+    cin >> n;
+    add_node(Tr, n);
+
+	cout << "Прямий обхід дерева: " << endl;
+	pr_obh(R);
+	cout << endl;
+	
+	cout << "Обхід дерева по горизонталі: " << endl;
+	g_obh(R);
+	cout << endl;
+
+    cout << "Назва нового вузла: " << n << endl;
+	cout << "Вивід бінарного дерева: " << endl;
+	print(R);
+	cout << endl;
+
+	return 0;
+}
