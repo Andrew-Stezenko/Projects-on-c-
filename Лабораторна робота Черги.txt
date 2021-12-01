@@ -1,0 +1,118 @@
+#include "iostream"
+#include <string>
+#include <stdlib.h>
+using namespace std;
+
+struct Queue
+{
+    char ElQueue;
+    Queue *Next; 
+} 
+*Head, *r;
+int symbol = 97;
+
+
+void Add(Queue *El)//додавання елементів в чергу
+{
+    Queue *temp = new Queue;
+    if (Head == NULL) 
+    {
+        Head = El;  
+        return;
+    }
+    else temp = Head;
+    while (temp->Next != NULL)
+    {
+        temp = temp->Next;
+    }
+    temp->Next = El;
+}
+
+
+void Delete()//видалення елементів з черги
+{
+    Queue *temp = Head->Next;
+    delete Head;
+    Head = temp;
+}
+
+
+void Show()//виведення черги
+{
+    int c= 0;
+    Queue *temp = Head; 
+    cout << "\n" << endl;
+    while (temp != NULL) 
+    {
+        cout << ++c << "-й елемент в черзі " << " --- " << "елемент " << temp->ElQueue << endl;
+        temp = temp->Next; 
+    }
+    cout << "\n" << endl;
+    cout << "Елементiв в черзі: " << c << "\n" << endl;
+}
+
+
+int main()
+{
+    setlocale(LC_ALL, "a");
+    Head = NULL;
+    while (1)
+    {
+        cout << "1 - Додати елементи в чергу" << endl;
+        cout << "2 - Видалити елементи з черги  " << endl;
+        cout << "3 - Вивести чергу" << endl;
+        cout << "4 - Вихiд" << "\n" << endl;
+        cout << "Введiть номер команди" << endl;
+        int a = 0, c = 0;
+        cin >> a;
+        cout << endl;
+        
+        switch (a)
+        {
+            case 1:
+            { 
+                cout << "Введiть кількість елементів, яке потрiбно додати: " << endl;  
+                cin >> c;
+                for (int i = 0; i < c; i++)
+                {
+                    r = new Queue;  
+                    r->ElQueue = symbol; 
+                    ++symbol; 
+                    r->Next = NULL; 
+                    Add(r);
+                } 
+                cout << "\n" << c << " елементів доданi в чергу" << "\n" << endl; 
+                break;
+            }
+            
+            case 2:
+            {
+                cout << "Введiть кількість елементів, яке потрібно видалити: " << endl;  
+                cin >> c;
+                for (int i = 0; i < c; i++)
+                {
+                    Delete();
+                }
+                cout << "\n" << c << " елементів видалені з черги" << "\n" << endl;
+                break;
+            }
+            
+            case 3: 
+            { 
+                if (Head) Show(); 
+                else 
+                cout << "Черга порожня" << "\n" << endl;      
+                break; 
+            }
+            
+            case 4: 
+            { 
+                exit(0); 
+                break; 
+            }
+        }
+    }
+    return 0;
+}
+
+
